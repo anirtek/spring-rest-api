@@ -1,27 +1,33 @@
 package io.anirtek.api.entity;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u ORDER BY u.firstName"),
+		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u where u.email=:pEmail") })
 public class User {
-	
+
 	@Id
 	private String id;
 	private String firstName;
 	private String lastName;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	private String email;
 	private String city;
 
-	public String getId() {
-		return id;
+	public User() {
+		this.id = UUID.randomUUID().toString();
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getId() {
+		return id;
 	}
 
 	public String getFirstName() {

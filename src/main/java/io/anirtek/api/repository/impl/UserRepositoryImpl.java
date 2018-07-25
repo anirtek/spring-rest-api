@@ -6,8 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import java.util.ArrayList;
-
 import org.springframework.stereotype.Repository;
 
 import io.anirtek.api.entity.User;
@@ -21,13 +19,14 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public List<User> findAll() {
-		TypedQuery<User> query = em.createNamedQuery("Users.findAll", User.class);
+		TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
 		return query.getResultList();
 	}
 
 	@Override
-	public User findByEmail(String id) {
-		TypedQuery<User> query = em.createNamedQuery("Users.findByEmail", User.class);
+	public User findByEmail(String email) {
+		TypedQuery<User> query = em.createNamedQuery("User.findByEmail", User.class);
+		query.setParameter("pEmail", email);
 		List<User> users = query.getResultList();
 		if (!users.isEmpty()) {
 			return users.get(0);
@@ -49,8 +48,7 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public User update(User user) {
-		em.merge(user);
-		return user;
+		return em.merge(user);
 	}
 
 	@Override
