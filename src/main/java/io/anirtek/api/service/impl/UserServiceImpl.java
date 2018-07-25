@@ -3,6 +3,7 @@ package io.anirtek.api.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.anirtek.api.entity.User;
 import io.anirtek.api.exception.BadRequstException;
@@ -20,11 +21,13 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	@Transactional(readOnly=true)
 	public List<User> findAll() {
 		return repository.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public User findOne(String id) {
 		User user = repository.findOne(id);
 		if(user == null) {
@@ -34,6 +37,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public User create(User user) {
 		User existing = repository.findByEmail(user.getEmail());
 		if(existing != null) {
@@ -43,6 +47,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public User update(String id, User user) {
 		User existing = repository.findOne(id);
 		if(existing == null) {
@@ -52,6 +57,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public void delete(String id) {
 		User existing = repository.findOne(id);
 		if(existing == null) {
