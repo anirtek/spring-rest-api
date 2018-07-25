@@ -1,9 +1,18 @@
 package io.anirtek.api.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class User {
+	
+	@Id
 	private String id;
 	private String firstName;
 	private String lastName;
+	
+	@Column(unique=true)
 	private String email;
 	private String city;
 
