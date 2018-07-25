@@ -48,16 +48,16 @@ public class UserServiceImpl implements UserService {
 		if(existing == null) {
 			throw new NotFoundException("User with id " + id + " does not exist");
 		}
-		return repository.update(id, user);
+		return repository.update(user);
 	}
 
 	@Override
 	public void delete(String id) {
-		User user = repository.findOne(id);
-		if(user == null) {
+		User existing = repository.findOne(id);
+		if(existing == null) {
 			throw new NotFoundException("User with id " + id + " does not exist");
 		}
-		repository.delete(id);
+		repository.delete(existing);
 	}
 
 }

@@ -13,7 +13,7 @@ public interface UserRepository {
 
 	public User create(User user);
 
-	public User update(String id, User user);
+	public User update(User user);
 
-	public void delete(String id);
+	public void delete(User user);
 }
