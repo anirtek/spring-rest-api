@@ -1,6 +1,7 @@
 package io.anirtek.api.repository.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,20 +25,20 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public User findByEmail(String email) {
+	public Optional<User> findByEmail(String email) {
 		TypedQuery<User> query = em.createNamedQuery("User.findByEmail", User.class);
 		query.setParameter("pEmail", email);
 		List<User> users = query.getResultList();
 		if (!users.isEmpty()) {
-			return users.get(0);
+			return Optional.of(users.get(0));
 		} else {
-			return null;
+			return Optional.empty();
 		}
 	}
 
 	@Override
-	public User findOne(String id) {
-		return em.find(User.class, id);
+	public Optional<User> findOne(String id) {
+		return Optional.ofNullable(em.find(User.class, id));
 	}
 
 	@Override

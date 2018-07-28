@@ -15,54 +15,45 @@ import io.anirtek.api.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	private UserRepository repository;
-	
+
 	public UserServiceImpl(UserRepository repositoryIn) {
 		this.repository = repositoryIn;
 	}
-	
+
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<User> findAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public User findOne(String id) {
-		User user = repository.findOne(id);
-		if(user == null) {
-			throw new NotFoundException("User with id " + id + " does not exist");
-		}
-		return user;
+		return repository.findOne(id)
+				.orElseThrow(() -> new NotFoundException("User with id " + id + " does not exist"));
 	}
 
 	@Override
 	@Transactional
 	public User create(User user) {
-		User existing = repository.findByEmail(user.getEmail());
-		if(existing != null) {
-			throw new BadRequstException("User with email " + user.getEmail() + " already exist");
-		}
+		repository.findByEmail(user.getEmail())
+				.orElseThrow(() -> new BadRequstException("User with email " + user.getEmail() + " already exist"));
+
 		return repository.create(user);
 	}
 
 	@Override
 	@Transactional
 	public User update(String id, User user) {
-		User existing = repository.findOne(id);
-		if(existing == null) {
-			throw new NotFoundException("User with id " + id + " does not exist");
-		}
+		repository.findOne(id).orElseThrow(() -> new NotFoundException("User with id " + id + " does not exist"));
 		return repository.update(user);
 	}
 
 	@Override
 	@Transactional
 	public void delete(String id) {
-		User existing = repository.findOne(id);
-		if(existing == null) {
-			throw new NotFoundException("User with id " + id + " does not exist");
-		}
+		User existing = repository.findOne(id)
+				.orElseThrow(() -> new NotFoundException("User with id " + id + " does not exist"));
 		repository.delete(existing);
 	}
 

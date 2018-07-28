@@ -1,15 +1,16 @@
 package io.anirtek.api.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import io.anirtek.api.entity.User;
 
 public interface UserRepository {
 	public List<User> findAll();
 
-	public User findOne(String id);
+	public Optional<User> findOne(String id);
 	
-	public User findByEmail(String email);
+	public Optional<User> findByEmail(String email);
 
 	public User create(User user);
 
