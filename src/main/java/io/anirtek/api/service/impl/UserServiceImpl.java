@@ -1,6 +1,7 @@
 package io.anirtek.api.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +37,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public User create(User user) {
-		repository.findByEmail(user.getEmail())
-				.orElseThrow(() -> new BadRequstException("User with email " + user.getEmail() + " already exist"));
+		Optional<User> mayExist = repository.findByEmail(user.getEmail());
+		if(mayExist.isPresent())
+				throw new BadRequstException("User with email " + user.getEmail() + " already exist");
 
 		return repository.create(user);
 	}
