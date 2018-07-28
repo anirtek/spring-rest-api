@@ -17,23 +17,23 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any()).build().apiInfo(apiInfo());
-	}
-
-	private ApiInfo apiInfo() {
-		return new ApiInfo(
-				"Spring REST API", 
-				"API being developed for weather seed project", 
-				"1.0.0", 
-				"TnC",
-				new Contact("Aniruddha Tekade", "https://anirtek.io", "atekade1@binghamton.edu"), 
-				"MIT",
-				"https://opensource.org/licenses/MIT", 
-				Collections.emptyList()
-		);
-	}
+//	@Bean
+//	public Docket api() {
+//		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+//				.paths(PathSelectors.any()).build().apiInfo(apiInfo());
+//	}
+//
+//	private ApiInfo apiInfo() {
+//		return new ApiInfo(
+//				"Spring REST API", 
+//				"API being developed for weather seed project", 
+//				"1.0.0", 
+//				"TnC",
+//				new Contact("Aniruddha Tekade", "https://anirtek.io", "atekade1@binghamton.edu"), 
+//				"MIT",
+//				"https://opensource.org/licenses/MIT", 
+//				Collections.emptyList()
+//		);
+//	}
 
 }
